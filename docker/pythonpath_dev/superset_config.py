@@ -44,6 +44,17 @@ def get_env_variable(var_name: str, default: Optional[str] = None) -> str:
             )
             raise EnvironmentError(error_msg)
 
+APP_NAME = "Jio Superset"
+APP_ICON = "/static/assets/images/logo.png"
+MENU_HIDE_USER_INFO = False
+FAVICONS = [
+    {
+        "href": "/static/assets/images/favicon.png",
+        "sizes": "32x32",
+        "type": "image/png",
+        "rel": "icon",
+    }
+]
 
 DATABASE_DIALECT = get_env_variable("DATABASE_DIALECT")
 DATABASE_USER = get_env_variable("DATABASE_USER")
@@ -108,10 +119,9 @@ WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 
 SQLLAB_CTAS_NO_LIMIT = True
 
-#
 # Optionally import superset_config_docker.py (which will have been included on
 # the PYTHONPATH) in order to allow for local settings to be overridden
-#
+
 try:
     import superset_config_docker
     from superset_config_docker import *  # noqa

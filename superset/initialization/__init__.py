@@ -29,7 +29,7 @@ from flask_babel import gettext as __, lazy_gettext as _
 from flask_compress import Compress
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from superset.constants import CHANGE_ME_SECRET_KEY
+from superset.constants import SECRET_KEY
 from superset.extensions import (
     _event_logger,
     APP_DIR,
@@ -453,7 +453,7 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
             )
             logger.warning(bottom_banner)
 
-        if self.config["SECRET_KEY"] == CHANGE_ME_SECRET_KEY:
+        if self.config["SECRET_KEY"] == SECRET_KEY:
             if (
                 self.superset_app.debug
                 or self.superset_app.config["TESTING"]
