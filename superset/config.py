@@ -283,10 +283,10 @@ SCHEDULED_QUERIES: Dict[str, Any] = {}
 # GLOBALS FOR APP Builder
 # ------------------------------
 # Uncomment to setup Your App name
-APP_NAME = "Jio Superset"
+# APP_NAME = "Jio Superset"
 
 # Specify the App icon
-APP_ICON = "/static/assets/images/logo.png"
+# APP_ICON = "/static/assets/images/logo.png"
 
 # Specify where clicking the logo would take the user
 # e.g. setting it to '/' would take the user to '/superset/welcome/'

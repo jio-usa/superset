@@ -27,6 +27,8 @@ from typing import Optional
 
 from cachelib.file import FileSystemCache
 from celery.schedules import crontab
+from flask_appbuilder.security.manager import AUTH_DB, AUTH_OAUTH
+
 
 logger = logging.getLogger()
 
@@ -56,6 +58,46 @@ FAVICONS = [
     }
 ]
 
+# ----------------------------------------------------
+# AUTHENTICATION CONFIG
+# ----------------------------------------------------
+# The authentication type
+# AUTH_OID : Is for OpenID
+# AUTH_DB : Is for database (username/password)
+# AUTH_LDAP : Is for LDAP
+# AUTH_REMOTE_USER : Is for using REMOTE_USER from web server
+
+AUTH_TYPE = AUTH_DB
+########### SET USER TO ACTIVE FOR LOGIN
+
+# Uncomment to setup Full admin role name
+# AUTH_ROLE_ADMIN = 'Admin'
+
+# Uncomment to setup Public role name, no authentication needed
+AUTH_ROLE_PUBLIC = 'Public'
+
+# Will allow user self registration
+AUTH_USER_REGISTRATION = True
+
+# The default user self registration role
+AUTH_USER_REGISTRATION_ROLE = "Public"
+
+# When using LDAP Auth, setup the LDAP server
+# AUTH_LDAP_SERVER = "ldap://ldapserver.new"
+
+# Uncomment to setup OpenID providers example for OpenID authentication
+# OPENID_PROVIDERS = [
+#    { 'name': 'Yahoo', 'url': 'https://open.login.yahoo.com/' },
+#    { 'name': 'Flickr', 'url': 'https://www.flickr.com/<username>' },
+
+# ---------------------------------------------------
+# Roles config
+# ---------------------------------------------------
+# Grant public role the same set of permissions as for a selected builtin role.
+# This is useful if one wants to enable anonymous users to view
+# dashboards. Explicit grant on specific datasets is still required.
+PUBLIC_ROLE_LIKE: Optional[str] = "Gamma"
+
 DATABASE_DIALECT = get_env_variable("DATABASE_DIALECT")
 DATABASE_USER = get_env_variable("DATABASE_USER")
 DATABASE_PASSWORD = get_env_variable("DATABASE_PASSWORD")
@@ -72,6 +114,9 @@ SQLALCHEMY_DATABASE_URI = "%s://%s:%s@%s:%s/%s" % (
     DATABASE_PORT,
     DATABASE_DB,
 )
+
+
+# SQLALCHEMY_DATABASE_URI = "mysql://atoc:At0c#75034@localhost:1620/users_db"
 
 REDIS_HOST = get_env_variable("REDIS_HOST")
 REDIS_PORT = get_env_variable("REDIS_PORT")
