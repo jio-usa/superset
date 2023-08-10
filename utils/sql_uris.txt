@@ -1,0 +1,2 @@
+mysql+pymysql://root:atoc@localhost:3306/network_kpis_ercs
+mysql+pymysql://root:atoc@localhost:3306/network_kpis_nokia

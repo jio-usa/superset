@@ -15,32 +15,27 @@ DATA_DIR = '/home/labuser/Desktop/anomaly-detection/data/raw/backup/'
 ercs = create_engine('mysql+pymysql://root:atoc@localhost:3306/network_kpis_ercs')
 nokia = create_engine('mysql+pymysql://root:atoc@localhost:3306/network_kpis_nokia')
 
-kpis = pd.read_csv('kpi_list.xlsx')
+kpis = pd.read_excel('kpi_list.xlsx')
 kpis = kpis['KPINAME'].tolist()
 
-def preprocess_data(file):
+def read_and_preprocess(file):
+    """
+    Preprocess the data to only use the required columns
+    """
     df = pd.read_csv(os.path.join(DATA_DIR, file))
-    # only keep the columns that are in the kpi list
-    df = df[kpis]
-
-
-
-
-
+    k = [x for x in kpis if x in df.columns]
+    df = df[k]
+    return df
 
 def add_to_sql(file, table_name, engine):
     """
     Add the data to the MySQL database
     """
-    df = pd.read_csv(os.path.join(DATA_DIR, file))
+    df = read_and_preprocess(file)
     df.to_sql(table_name, engine, if_exists='append', index=False, chunksize=1000)
     df = pd.DataFrame()
 
 def main():
-    # Connect to the database
-    
-    
-    # Read in the data
     for file in tqdm(os.listdir(DATA_DIR)):
         if file.endswith(".csv"):
             if file.split('_')[2] == 'ERCS':
@@ -50,13 +45,13 @@ def main():
                     add_to_sql(file, 'NBH', ercs)
                 else:
                     add_to_sql(file, 'Daily', ercs)
-            if file.split('_')[2] == 'Nokia':
-                if file.split('_')[4] == 'BBH':
-                    add_to_sql(file, 'BBH', nokia)
-                elif file.split('_')[4] == 'NBH':
-                    add_to_sql(file, 'NBH', nokia)
-                else:
-                    add_to_sql(file, 'Daily', nokia)
+            # if file.split('_')[2] == 'Nokia':
+            #     if file.split('_')[4] == 'BBH':
+            #         add_to_sql(file, 'BBH', nokia)
+            #     elif file.split('_')[4] == 'NBH':
+            #         add_to_sql(file, 'NBH', nokia)
+            #     else:
+            #         add_to_sql(file, 'Daily', nokia)
         else:
             continue
 
