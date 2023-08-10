@@ -21,6 +21,8 @@
 *.swp
 __pycache__
 
+utils/kpi_list.xlsx
+
 .local
 .cache
 .bento*
