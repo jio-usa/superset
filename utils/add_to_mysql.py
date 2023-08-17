@@ -14,8 +14,11 @@ logger = getLogger(__name__)
 
 DATA_DIR = '/media/labuser/29ecfc4a-5bf9-4b2f-8fc7-0733eaef8266/nocAi/data/raw/backup'
 
-ercs = create_engine('mysql+pymysql://root:atoc@localhost:3306/network_kpis_ercs')
-nokia = create_engine('mysql+pymysql://root:atoc@localhost:3306/network_kpis_nokia')
+# mysql+pymysql://root:atoc@localhost:3306/network_kpis_ercs
+
+with open('sql_uris.txt', 'r') as f:
+    ercs = create_engine(f.readline().strip())
+    nokia = create_engine(f.readline().strip())
 
 kpis = pd.read_excel('kpi_list.xlsx')
 kpis = kpis['KPINAME'].tolist()

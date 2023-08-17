@@ -22,6 +22,7 @@
 __pycache__
 
 utils/kpi_list.xlsx
+utils/sql_uris.txt
 
 .local
 .cache
