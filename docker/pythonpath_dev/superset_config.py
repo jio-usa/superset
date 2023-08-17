@@ -46,7 +46,7 @@ def get_env_variable(var_name: str, default: Optional[str] = None) -> str:
             )
             raise EnvironmentError(error_msg)
 
-APP_NAME = "Jio Superset"
+APP_NAME = "JNB"
 APP_ICON = "/static/assets/images/logo.png"
 MENU_HIDE_USER_INFO = False
 FAVICONS = [
@@ -57,6 +57,8 @@ FAVICONS = [
         "rel": "icon",
     }
 ]
+
+WELCOME_DASHBOARD_TEMPLATE = 'xbI0UhuPaZ9IcKOamuGs4rnq-TCWqBTLwdERrIvknWLAfWGyrvUPo2ahRcw3Z3c'
 
 # ----------------------------------------------------
 # AUTHENTICATION CONFIG
