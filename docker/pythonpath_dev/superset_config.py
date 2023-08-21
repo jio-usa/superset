@@ -47,19 +47,13 @@ def get_env_variable(var_name: str, default: Optional[str] = None) -> str:
             raise EnvironmentError(error_msg)
 
 APP_NAME = "JNB"
-APP_ICON = "/static/assets/images/logo.png"
+APP_ICON = "/static/assets/images/superset-logo@2x.png"
+APP_ICON_WIDTH = 126
 MENU_HIDE_USER_INFO = False
-FAVICONS = [
-    {
-        "href": "/static/assets/images/favicon.png",
-        "sizes": "32x32",
-        "type": "image/png",
-        "rel": "icon",
-    }
-]
+
+FAB_API_SWAGGER_UI = True
 
 WELCOME_DASHBOARD_TEMPLATE = 'xbI0UhuPaZ9IcKOamuGs4rnq-TCWqBTLwdERrIvknWLAfWGyrvUPo2ahRcw3Z3c'
-
 # ----------------------------------------------------
 # AUTHENTICATION CONFIG
 # ----------------------------------------------------
