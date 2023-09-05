@@ -29,11 +29,11 @@ def read_and_preprocess(file):
     """
     df = pd.read_csv(os.path.join(DATA_DIR, file))
     k = [i for i in df.columns if i in kpis]
-    k = k + df.columns[:12].tolist()
+    k += df.columns[:12].tolist()
     df = df[k]
     return df
 
-def debug_purge(delete=False;):
+def debug_purge(delete=False):  # sourcery skip: extract-duplicate-method
     """
     Delete the data from the MySQL database
     """
@@ -61,23 +61,22 @@ def main():
     """
     # debug_purge()
     for file in tqdm(os.listdir(DATA_DIR)):
-        if file.endswith(".csv"):
-            if file.split('_')[2] == 'ERCS':
-                if file.split('_')[4] == 'BBH':
-                    add_to_sql(file, 'BBH_ERCS', ercs)
-                elif file.split('_')[4] == 'NBH':
-                    add_to_sql(file, 'NBH_ERCS', ercs)
-                else:
-                    add_to_sql(file, 'Daily_ERCS', ercs)
-            if file.split('_')[2] == 'Nokia':
-                if file.split('_')[4] == 'BBH':
-                    add_to_sql(file, 'BBH_Nokia', nokia)
-                elif file.split('_')[4] == 'NBH':
-                    add_to_sql(file, 'NBH_Nokia', nokia)
-                else:
-                    add_to_sql(file, 'Daily_Nokia', nokia)
-        else:
+        if not file.endswith(".csv"):
             continue
+        if file.split('_')[2] == 'ERCS':
+            if file.split('_')[4] == 'BBH':
+                add_to_sql(file, 'BBH_ERCS', ercs)
+            elif file.split('_')[4] == 'NBH':
+                add_to_sql(file, 'NBH_ERCS', ercs)
+            else:
+                add_to_sql(file, 'Daily_ERCS', ercs)
+        if file.split('_')[2] == 'Nokia':
+            if file.split('_')[4] == 'BBH':
+                add_to_sql(file, 'BBH_Nokia', nokia)
+            elif file.split('_')[4] == 'NBH':
+                add_to_sql(file, 'NBH_Nokia', nokia)
+            else:
+                add_to_sql(file, 'Daily_Nokia', nokia)
 
 if __name__ == '__main__':
     main()
